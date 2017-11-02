@@ -3,7 +3,6 @@
 <head>
     <title>刮刮乐</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
     <link rel="stylesheet" href="base.css">
     <style type="text/css">
@@ -34,9 +33,6 @@
         <div id="box">谢谢惠顾</div>
         <canvas id="cvs" width="300" height="150"></canvas>
     </div>
-
-
-    <!-- <script src="jquery.min.js"></script> -->
     <script type="text/javascript">
         var cvs = document.getElementById('cvs');
         var box = document.getElementById('box');
@@ -62,30 +58,5 @@
             cvs.removeEventListener('mousemove', draw, false)
         }, false)
     </script>
-   <!--  <script>
-        new function() {
-            var _self = this;
-            _self.width = 750; //设置默认最大宽度
-            _self.fontSize = 100; //默认字体大小
-            _self.widthProportion = function() {
-                var p = (document.body && document.body.clientWidth || document.getElementsByTagName("html")[0].offsetWidth) / _self.width;
-                return p > 1 ? 1 : p < 0.4 ? 0.5 : p;
-            }; //判断当前屏幕尺寸，设置的最大屏幕宽度之间的比例
-            _self.changePage = function() {
-                document.getElementsByTagName("html")[0].setAttribute("style", "font-size:" + _self.widthProportion() * _self.fontSize + "px !important");
-            } //修改根元素html的font-size的植
-            _self.changePage();
-            window.addEventListener('resize', function() {
-                _self.changePage();
-            }, false); //侦听屏幕宽度变化
-        };
-    </script> -->
-    
-   <!--  <script type="text/javascript">
-    $('select').on('input propertychange',function(){
-        window.location.href = $(this).children('option:selected').val();
-    })
-    
-    </script> -->
 </body>
 </html>
