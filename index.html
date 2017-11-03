@@ -18,45 +18,64 @@
             line-height:130px;
             text-align:center;
             font-size:40px;
-            margin:50px;
+            padding:0;
         }
-        #cvs {
+        #cvs,#cvs2 {
             position:absolute;
             top:50px;
             left:50px;
         }
-
+        #img1{
+            margin:0;
+        }
     </style>
 </head>
 <body>
-    <div>
+    <div class="d1" style="position:relative;padding:50px;">
         <div id="box">谢谢惠顾</div>
         <canvas id="cvs" width="300" height="150"></canvas>
     </div>
+    <div class="d2" style="position:relative;padding:50px;">
+        <img id="img1" width='492' height="309" src="1.png">
+        <canvas id="cvs2" width="492" height="309"></canvas>
+    </div>
+    <script type="text/javascript" src="StackBlur.js"></script>
     <script type="text/javascript">
-        var cvs = document.getElementById('cvs');
+    window.onload= function(){
+        var cvs1 = document.getElementById('cvs');
         var box = document.getElementById('box');
 
         var arr = ['谢谢惠顾','一等奖','二等奖','三等奖'];
         var i = Math.floor(Math.random() * 4);//0-9
         box.innerHTML = arr[i];
 
-        var c = cvs.getContext('2d');
-        c.fillStyle = '#ccc';//填充色
-        c.fillRect(0, 0, cvs.width, cvs.height);
+        var c1 = cvs1.getContext('2d');
+        c1.fillStyle = '#ccc';//填充色
+        c1.fillRect(0, 0, cvs.width, cvs.height);
 
-        function draw(e) {
-            c.globalCompositeOperation = 'destination-out';//在源图像外显示目标图像。只有源图像外的目标图像部分会被显示，源图像是透明的。
-            c.beginPath();
-            c.arc(e.clientX - cvs.offsetLeft, e.clientY - cvs.offsetTop, 20, 0, 2 * Math.PI, false)
-            c.fill();
+        stackBlurImage( 'img1', 'cvs2',20,true);
+        var cvs2 = document.getElementById('cvs2');
+
+        bangding(cvs1);//绑定事件
+        bangding(cvs2);
+
+        function bangding(cvs){//绑定事件
+            var c = cvs.getContext('2d');
+            cvs.addEventListener('mousedown', function() {
+                cvs.addEventListener('mousemove', draw, false);
+            }, false)
+            document.addEventListener('mouseup', function() {
+                cvs.removeEventListener('mousemove', draw, false);//移除事件
+            }, false)
+            function draw(e) {
+                var p = cvs.parentNode;//获取父元素
+                c.globalCompositeOperation = 'destination-out';//在源图像外显示目标图像。只有源图像外的目标图像部分会被显示，源图像是透明的。
+                c.beginPath();
+                c.arc(e.clientX - p.offsetLeft - cvs.offsetLeft, e.clientY - p.offsetTop - cvs.offsetTop , 20, 0, 2 * Math.PI, false)
+                c.fill();
+            }
         }
-        cvs.addEventListener('mousedown', function() {
-            cvs.addEventListener('mousemove', draw, false)
-        }, false)
-        document.addEventListener('mouseup', function() {
-            cvs.removeEventListener('mousemove', draw, false)
-        }, false)
+    }
     </script>
 </body>
 </html>
